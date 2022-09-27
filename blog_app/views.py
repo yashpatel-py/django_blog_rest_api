@@ -13,7 +13,7 @@ def blog_list(request):
 
 def blog_detail(request, pk):
     blogs = Blog.objects.get(pk=pk)
-    
+
     data = {
         'name': blogs.name,
         'description': blogs.description,
