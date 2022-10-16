@@ -20,8 +20,23 @@ def blog_list(request):
         else:
             return Response(serializer.errors)
 
-@api_view(['GET'])
+@api_view(['GET', 'PUT', 'DELETE'])
 def blog_detail(request, pk):
-    blog = Blog.objects.get(pk=pk)
-    serializer = BlogSerializer(blog)
-    return Response(serializer.data)
+    if request.method == "GET":
+        blog = Blog.objects.get(pk=pk)
+        serializer = BlogSerializer(blog)
+        return Response(serializer.data)
+    
+    if request.method == "PUT":
+        blog = Blog.objects.get(pk=pk)
+        serializer = BlogSerializer(blog, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors)
+        
+    if request.method == "DELETE":
+        blog = Blog.objects.get(pk=pk)
+        blog.delete()
+        return Response()
