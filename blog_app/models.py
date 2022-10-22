@@ -15,7 +15,7 @@ class Blog(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.name + "-" + str(self.post_date))
+            self.slug = slugify(self.name)
         return super().save(*args, **kwargs)
 
 class BlogComment(models.Model):
