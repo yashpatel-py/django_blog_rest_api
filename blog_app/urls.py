@@ -7,5 +7,9 @@ urlpatterns = [
     
     # Class based view URLS
     path('class_blog_list/', views.BlogListView.as_view(), name="all_blog_list"),
-    path('class_blog_detail/<int:pk>/', views.BlogDetailView.as_view(), name="blog_detail")
+    path('class_blog_detail/<int:pk>/', views.BlogDetailView.as_view(), name="blog_detail"),
+    
+    # Category URLS
+    path("category_list/", views.CategoryListView.as_view(), name="category_list"),
+    path("category_detail/<int:pk>/", views.CategoryDetailView.as_view(), name="category_detail")
 ]
