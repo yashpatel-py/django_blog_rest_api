@@ -34,16 +34,6 @@ class BlogListView(APIView):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-# ------------------ generic view
-class BlogListGenericView(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
-    queryset = Blog.objects.all()
-    serializer_class = BlogSerializer
-    def get(self, request, *args, **kwargs):
-        return self.list(request, *args, **kwargs)
-
-    def post(self, request, *args, **kwargs):
-        return self.create(request, *args, **kwargs)
-
 # GET, PUT, DELETE 
 class BlogDetailView(APIView):
     def get(self, request, pk):
@@ -64,3 +54,20 @@ class BlogDetailView(APIView):
         blog = Blog.objects.get(pk=pk)
         blog.delete()
         return Response(status=status.HTTP_200_OK)
+
+# ------------------ generic view
+class BlogListGenericView(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
+    queryset = Blog.objects.all()
+    serializer_class = BlogSerializer
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+class BlogDetailGenericView(mixins.RetrieveModelMixin, generics.GenericAPIView):
+    queryset = Blog.objects.all()
+    serializer_class = BlogSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
