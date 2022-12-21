@@ -65,9 +65,15 @@ class BlogListGenericView(mixins.ListModelMixin, mixins.CreateModelMixin, generi
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
 
-class BlogDetailGenericView(mixins.RetrieveModelMixin, generics.GenericAPIView):
+class BlogDetailGenericView(mixins.RetrieveModelMixin, 
+                            mixins.UpdateModelMixin,
+                            generics.GenericAPIView):
+
     queryset = Blog.objects.all()
     serializer_class = BlogSerializer
 
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)
+
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
