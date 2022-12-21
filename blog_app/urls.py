@@ -11,5 +11,8 @@ urlpatterns = [
     
     # Category URLS
     path("category_list/", views.CategoryListView.as_view(), name="category_list"),
-    path("category_detail/<int:pk>/", views.CategoryDetailView.as_view(), name="category-detail")
+    path("category_detail/<int:pk>/", views.CategoryDetailView.as_view(), name="category-detail"),
+    
+    # Generic view links
+    path("blog_list_generic_view/", views.BlogListGenericView.as_view(), name="blog_list_generic_view")
 ]
