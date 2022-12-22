@@ -67,6 +67,7 @@ class BlogListGenericView(mixins.ListModelMixin, mixins.CreateModelMixin, generi
 
 class BlogDetailGenericView(mixins.RetrieveModelMixin, 
                             mixins.UpdateModelMixin,
+                            mixins.DestroyModelMixin,
                             generics.GenericAPIView):
 
     queryset = Blog.objects.all()
@@ -77,3 +78,6 @@ class BlogDetailGenericView(mixins.RetrieveModelMixin,
 
     def put(self, request, *args, **kwargs):
         return self.update(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
