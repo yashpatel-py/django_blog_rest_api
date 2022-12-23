@@ -72,6 +72,7 @@ class BlogDetailGenericView(mixins.RetrieveModelMixin,
 
     queryset = Blog.objects.all()
     serializer_class = BlogSerializer
+    lookup_field = 'slug'
 
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)
