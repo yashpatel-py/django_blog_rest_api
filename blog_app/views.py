@@ -91,3 +91,8 @@ class BlogCreateCon(generics.CreateAPIView):
 class BlogListcon(generics.ListAPIView):
     queryset = Blog.objects.all()
     serializer_class = BlogSerializer
+
+class BlogRetrievecon(generics.RetrieveAPIView):
+    queryset = Blog.objects.all()
+    serializer_class = BlogSerializer
+    lookup_field = 'slug'
