@@ -100,3 +100,11 @@ class BlogRetrievecon(generics.RetrieveAPIView):
 class BlogDestroyCon(generics.DestroyAPIView):
     queryset = Blog.objects.all()
     serializer_class = BlogSerializer
+
+class BlogUpdateCon(generics.UpdateAPIView):
+    queryset = Blog.objects.all()
+    serializer_class = BlogSerializer
+
+class BlogretrieveUpdateCon(generics.RetrieveUpdateAPIView):
+    queryset = Blog.objects.all()
+    serializer_class = BlogSerializer
