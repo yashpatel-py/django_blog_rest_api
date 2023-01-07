@@ -23,4 +23,11 @@ urlpatterns = [
     path("blog_destroypiview/<int:pk>/", views.BlogDestroyCon.as_view(), name="blog_destroy_destroyapiview"),
     path("blog_updateapiview/<int:pk>/", views.BlogUpdateCon.as_view(), name="blog_update_updateapiview"),
     path("blog_retrieveUpdateapiview/<int:pk>/", views.BlogretrieveUpdateCon.as_view(), name="blog_retrieveUpdate_retrieveUpdateapiview"),
+    
+    
+    
+    
+    
+    
+    path("blog_retrieveDestroyapiview/<int:pk>/", views.BlogRetrieveDestroyCon.as_view(), name="blog_retrieveDestroy_retrieveDestroyapiview"),
 ]
