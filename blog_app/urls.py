@@ -30,4 +30,6 @@ urlpatterns = [
     
     
     path("blog_retrieveDestroyapiview/<int:pk>/", views.BlogRetrieveDestroyCon.as_view(), name="blog_retrieveDestroy_retrieveDestroyapiview"),
+    
+    path("blog_listcreate_listcreateapiview/", views.BlogListCreateApiView.as_view(), name="blog_listcreate_listcreateapiview"),
 ]
