@@ -20,4 +20,5 @@ urlpatterns = [
     path("blog_create_createapiview/", views.BlogCreateCon.as_view(), name="blog_create_createapiview"),
     path("blog_list_createapiview/", views.BlogListcon.as_view(), name="blog_list_createapiview"),
     path("blog_retrieve_retrievepiview/<str:slug>/", views.BlogRetrievecon.as_view(), name="blog_retrieve_retrieveapiview"),
+    path("blog_destroypiview/<int:pk>/", views.BlogDestroyCon.as_view(), name="blog_destroy_destroyapiview"),
 ]
