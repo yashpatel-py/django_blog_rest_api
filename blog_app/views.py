@@ -116,3 +116,7 @@ class BlogRetrieveDestroyCon(generics.RetrieveDestroyAPIView):
 class BlogListCreateApiView(generics.ListCreateAPIView):
     queryset = Blog.objects.all()
     serializer_class = BlogSerializer
+
+class BlogRUDApiView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Blog.objects.all()
+    serializer_class = BlogSerializer
