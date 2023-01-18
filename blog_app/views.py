@@ -4,8 +4,64 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
 from rest_framework.views import APIView
-
 from rest_framework import mixins, generics
+from rest_framework import viewsets
+
+from django.shortcuts import get_object_or_404
+
+
+# class BlogViewSet(viewsets.ViewSet):
+#     def list(self, request):
+#         queryset = Blog.objects.filter(is_public=True)
+#         serializer = BlogSerializer(queryset, many=True)
+#         return Response(serializer.data)
+    
+#     def retrieve(self, request, pk=None):
+#         queryset = Blog.objects.filter(is_public=True)
+#         blog_list = get_object_or_404(queryset, pk=pk)
+#         serializer = BlogSerializer(blog_list)
+#         return Response(serializer.data)
+    
+#     def create(self, request):
+#         serializer = BlogSerializer(data = request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+#     def update(self, request, pk=None):
+#         blog = get_object_or_404(Blog, pk=pk)
+#         serializer = BlogSerializer(blog, data = request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+#     def destroy(self, request, pk=None):
+#         blog = get_object_or_404(Blog, pk=pk)
+#         blog.delete()
+#         return Response({"Message": "Your blog has been deleted"}, status=status.HTTP_204_NO_CONTENT)
+
+
+class BlogViewSet(viewsets.ModelViewSet):
+    queryset = Blog.objects.filter(is_public=True)
+    serializer_class = BlogSerializer
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # class CategoryListView(APIView):
 #     def get(self, request):
@@ -84,39 +140,39 @@ from rest_framework import mixins, generics
 #         return self.destroy(request, *args, **kwargs)
 
 # Concrete Views
-class BlogCreateCon(generics.CreateAPIView):
-    queryset = Blog.objects.all()
-    serializer_class = BlogSerializer
+# class BlogCreateCon(generics.CreateAPIView):
+#     queryset = Blog.objects.all()
+#     serializer_class = BlogSerializer
 
-class BlogListcon(generics.ListAPIView):
-    queryset = Blog.objects.all()
-    serializer_class = BlogSerializer
+# class BlogListcon(generics.ListAPIView):
+#     queryset = Blog.objects.all()
+#     serializer_class = BlogSerializer
 
-class BlogRetrievecon(generics.RetrieveAPIView):
-    queryset = Blog.objects.all()
-    serializer_class = BlogSerializer
-    lookup_field = 'slug'
+# class BlogRetrievecon(generics.RetrieveAPIView):
+#     queryset = Blog.objects.all()
+#     serializer_class = BlogSerializer
+#     lookup_field = 'slug'
 
-class BlogDestroyCon(generics.DestroyAPIView):
-    queryset = Blog.objects.all()
-    serializer_class = BlogSerializer
+# class BlogDestroyCon(generics.DestroyAPIView):
+#     queryset = Blog.objects.all()
+#     serializer_class = BlogSerializer
 
-class BlogUpdateCon(generics.UpdateAPIView):
-    queryset = Blog.objects.all()
-    serializer_class = BlogSerializer
+# class BlogUpdateCon(generics.UpdateAPIView):
+#     queryset = Blog.objects.all()
+#     serializer_class = BlogSerializer
 
-class BlogretrieveUpdateCon(generics.RetrieveUpdateAPIView):
-    queryset = Blog.objects.all()
-    serializer_class = BlogSerializer
+# class BlogretrieveUpdateCon(generics.RetrieveUpdateAPIView):
+#     queryset = Blog.objects.all()
+#     serializer_class = BlogSerializer
 
-class BlogRetrieveDestroyCon(generics.RetrieveDestroyAPIView):
-    queryset = Blog.objects.all()
-    serializer_class = BlogSerializer
+# class BlogRetrieveDestroyCon(generics.RetrieveDestroyAPIView):
+#     queryset = Blog.objects.all()
+#     serializer_class = BlogSerializer
 
-class BlogListCreateApiView(generics.ListCreateAPIView):
-    queryset = Blog.objects.all()
-    serializer_class = BlogSerializer
+# class BlogListCreateApiView(generics.ListCreateAPIView):
+#     queryset = Blog.objects.all()
+#     serializer_class = BlogSerializer
 
-class BlogRUDApiView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Blog.objects.all()
-    serializer_class = BlogSerializer
+# class BlogRUDApiView(generics.RetrieveUpdateDestroyAPIView):
+#     queryset = Blog.objects.all()
+#     serializer_class = BlogSerializer
