@@ -1,13 +1,34 @@
 from .models import Blog, Category
 from .serializers import BlogSerializer, CategorySerializer
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
 from rest_framework import status
-from rest_framework.views import APIView
-from rest_framework import mixins, generics
-from rest_framework import viewsets
+from rest_framework import generics
 
-from django.shortcuts import get_object_or_404
+
+class CategoryListeCreateView(generics.ListCreateAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+    
+    def list(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        serializer = CategorySerializer(queryset, many=True, context={'request': request})
+        if queryset.exists():
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response({'Message': 'No category found'}, status=status.HTTP_404_NOT_FOUND)
+
+class CategorydetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+    liikup_field = 'id' # slug
+    
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+        if instance:
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response({'Message': 'No blog Found'}, status=status.HTTP_404_NOT_FOUND)
 
 class BlogListCreateView(generics.ListCreateAPIView):
     queryset = Blog.objects.filter(is_public = True)
