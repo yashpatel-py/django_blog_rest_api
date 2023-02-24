@@ -5,11 +5,21 @@ from rest_framework import status
 from rest_framework import generics
 from django.shortcuts import get_object_or_404
 from rest_framework import serializers
+from rest_framework.permissions import IsAuthenticated, IsAdminUser, IsAuthenticatedOrReadOnly
+
 
 
 class CategoryListeCreateView(generics.ListCreateAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+    # should be logged in to access this view
+    # permission_classes = [IsAuthenticated] 
+    
+    # should be logged in and admin user
+    # permission_classes = [IsAdminUser] 
+    
+    # should be logged to edit the details or you will have permission to view the data
+    permission_classes = [IsAuthenticatedOrReadOnly]
     
     def list(self, request, *args, **kwargs):
         queryset = self.get_queryset()
