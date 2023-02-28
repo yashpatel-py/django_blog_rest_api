@@ -6,6 +6,7 @@ from rest_framework import generics
 from django.shortcuts import get_object_or_404
 from rest_framework import serializers
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, IsAuthenticatedOrReadOnly
+from .permissions import IsAdminOrReadOnly, IsOwnerOrReadonly
 
 
 
@@ -19,7 +20,10 @@ class CategoryListeCreateView(generics.ListCreateAPIView):
     # permission_classes = [IsAdminUser] 
     
     # should be logged to edit the details or you will have permission to view the data
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    # permission_classes = [IsAuthenticatedOrReadOnly]
+    
+    # CUSTOM PERMISSION: is user is admin the he will have permission to perform CRUD operartions and other user will have read only permission
+    permission_classes = [IsAdminOrReadOnly]
     
     def list(self, request, *args, **kwargs):
         queryset = self.get_queryset()
@@ -65,6 +69,7 @@ class BlogDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Blog.objects.filter(is_public = True)
     serializer_class = BlogSerializer
     liikup_field = 'id' # slug
+    permission_classes = [IsOwnerOrReadonly]
     
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
