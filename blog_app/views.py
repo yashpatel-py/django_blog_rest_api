@@ -8,6 +8,7 @@ from rest_framework import serializers
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, IsAuthenticatedOrReadOnly
 from .permissions import IsAdminOrReadOnly, IsOwnerOrReadonly
 from rest_framework.throttling import UserRateThrottle, AnonRateThrottle, ScopedRateThrottle
+from django_filters.rest_framework import DjangoFilterBackend
 
 from .throttle import BlogListCreateViewThrottle
 
@@ -40,9 +41,9 @@ class CategorydetailView(generics.RetrieveUpdateDestroyAPIView):
             return Response({'Message': 'No blog Found'}, status=status.HTTP_404_NOT_FOUND)
 
 class BlogListCreateView(generics.ListCreateAPIView):
-    queryset = Blog.objects.filter(is_public = True)
+    queryset = Blog.objects.all()
     serializer_class = BlogSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    # permission_classes = [IsAuthenticatedOrReadOnly]
     
     # UserRate & AnonRate Throttle
     # throttle_classes = [UserRateThrottle, AnonRateThrottle]
@@ -52,15 +53,11 @@ class BlogListCreateView(generics.ListCreateAPIView):
     # throttle_scope = 'blog-list'
 
     # Custom Throttle
-    throttle_classes = [BlogListCreateViewThrottle]
-
-    def list(self, request, *args, **kwargs):
-        queryset = self.get_queryset()
-        serializer = BlogSerializer(queryset, many=True, context={'request': request})
-        if queryset.exists():
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        else:
-            return Response({'Message':'No blogs found'}, status=status.HTTP_204_NO_CONTENT)
+    # throttle_classes = [BlogListCreateViewThrottle]
+    
+    # Filtering
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['category__category_name', 'is_public']
 
     def create(self, request, *args, **kwargs):
         serializer = BlogSerializer(data=request.data, context={'request': request})
