@@ -7,7 +7,9 @@ from django.shortcuts import get_object_or_404
 from rest_framework import serializers
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, IsAuthenticatedOrReadOnly
 from .permissions import IsAdminOrReadOnly, IsOwnerOrReadonly
-from rest_framework.throttling import UserRateThrottle, AnonRateThrottle
+from rest_framework.throttling import UserRateThrottle, AnonRateThrottle, ScopedRateThrottle
+
+from .throttle import BlogListCreateViewThrottle
 
 
 class CategoryListeCreateView(generics.ListCreateAPIView):
@@ -41,7 +43,16 @@ class BlogListCreateView(generics.ListCreateAPIView):
     queryset = Blog.objects.filter(is_public = True)
     serializer_class = BlogSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
-    throttle_classes = [UserRateThrottle, AnonRateThrottle]
+    
+    # UserRate & AnonRate Throttle
+    # throttle_classes = [UserRateThrottle, AnonRateThrottle]
+    
+    # ScopeRateThrottle
+    # throttle_classes = [ScopedRateThrottle]
+    # throttle_scope = 'blog-list'
+
+    # Custom Throttle
+    throttle_classes = [BlogListCreateViewThrottle]
 
     def list(self, request, *args, **kwargs):
         queryset = self.get_queryset()
