@@ -57,9 +57,10 @@ class BlogListCreateView(generics.ListCreateAPIView):
     # throttle_classes = [BlogListCreateViewThrottle]
     
     # Filtering
-    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
     filterset_fields = ['category__category_name', 'is_public']
     search_fields = ['^blog_title', 'blog_description', 'category__category_name']
+    ordering_fields = ['Post date', 'category__category_name']
 
     def create(self, request, *args, **kwargs):
         serializer = BlogSerializer(data=request.data, context={'request': request})
