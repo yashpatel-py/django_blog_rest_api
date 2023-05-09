@@ -146,7 +146,9 @@ REST_FRAMEWORK = {
         'anon': '5/day',
         'user': '10/day',
         'blog-list': '15/day'
-    }
+    },
+    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    # 'PAGE_SIZE': 2
 }
 
 SIMPLE_JWT = {
