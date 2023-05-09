@@ -55,10 +55,10 @@ class BlogListCreateView(generics.ListCreateAPIView):
     # throttle_classes = [BlogListCreateViewThrottle]
     
     # Filtering
-    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     filterset_fields = ['category__category_name', 'is_public']
     search_fields = ['^blog_title', 'blog_description', 'category__category_name']
-    ordering_fields = ['Post date', 'category__category_name']
+    # ordering_fields = ['Post date', 'category__category_name']
     
     # pagination
     pagination_class = BlogListCreatePagination
